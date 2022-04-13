@@ -6,7 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Library.fs" />
+    <Compile Include="ConfigService.fsi" />
+    <Compile Include="ConfigService.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Funpac.Folders\Funpac.Folders.fsproj" />
+    <ProjectReference Include="..\Funpac.Files\Funpac.Files.fsproj" />
   </ItemGroup>
 
 </Project>
