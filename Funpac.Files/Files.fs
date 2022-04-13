@@ -4,6 +4,7 @@ module Funpac.Files
     open System.IO
     open System.Net.Http
     open Folders
+    open Legivel
 
     let templateConfigFileUrl : string =
         "https://raw.githubusercontent.com/andreaswachs/issues-to-md/main/files/1.md"
@@ -34,5 +35,5 @@ module Funpac.Files
         | true -> ()
         | false -> createDefaultConfigFile
         
-
+    
 
