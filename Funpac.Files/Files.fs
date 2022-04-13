@@ -6,6 +6,9 @@ module Funpac.Files
     open Folders
     open Legivel
 
+    // TODO: If needing to fetch the deafult file, also get the related default files
+
+
     let templateConfigFileUrl : string =
         "https://raw.githubusercontent.com/andreaswachs/issues-to-md/main/files/1.md"
         
