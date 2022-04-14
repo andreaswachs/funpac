@@ -13,7 +13,10 @@ module ArgsParse
         let rec aux (settings: ProgramSettings) (arg: string) : ProgramSettings =
             match arg with
             | "--verbose" ->
-                settings.verbose <- true    
+                settings.verbose <- true
+            | "--version" ->
+                printfn $"Version {Meta.version}"
+                exit 0
             | key ->
                 settings.key <- Some key
                 
@@ -27,4 +30,5 @@ module ArgsParse
     let getVerboseMode (settings: ProgramSettings) : bool =
         settings.verbose
         
+
 

@@ -5,7 +5,7 @@ open ArgsParse
 
 [<Fact>]
 let ``parseArgs given empty list parses no args`` () =
-    let args = []
+    let args = [||]
     
     let actual = parseArgs args
     
@@ -14,7 +14,7 @@ let ``parseArgs given empty list parses no args`` () =
     
 [<Fact>]
 let ```arseArgs given flag --verbose sets verbose mode to true`` () =
-    let args = ["--verbose"]
+    let args = [|"--verbose"|]
     
     let actual = parseArgs args
     

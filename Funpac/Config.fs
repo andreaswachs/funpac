@@ -1,6 +1,5 @@
 module Config
 
-    open System
     open System.IO
     open Folders
     open Files
