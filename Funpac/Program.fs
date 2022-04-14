@@ -5,6 +5,8 @@ let main(args) =
     let config = Config.loadConfig()
     let entries = Config.getEntries config
     
+    ArgsParse.getSpecialCommand settings |> Config.doSpecialCommand 
+    
     let key = match ArgsParse.getKey settings with
               | None -> printfn "Error: no template key given"; exit 1
               | Some key -> key

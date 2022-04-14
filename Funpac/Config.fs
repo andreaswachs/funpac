@@ -1,6 +1,7 @@
 module Config
 
     open System.IO
+    open ArgsParse
     open Folders
     open Files
     open Legivel.Serialization
@@ -101,3 +102,19 @@ module Config
     let unpack (entry: YamlEntry) : unit =
         unpackFolders entry |> ignore
         unpackFiles entry |> ignore
+        
+        
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    // * Functions that deal with special actions´
+    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+    
+    let doSpecialCommand : SpecialCommand option -> unit =
+        function
+        | None -> ()
+        | Some action ->
+             match action with
+             | OpenConfig ->
+                 printfn "%s" <| Files.configFilePath
+             | OpenTemplatesFolder ->
+                 printfn "%s" <| Folders.templatesFolderPath
+             exit 0
