@@ -5,6 +5,7 @@ module ArgsParse
     type SpecialCommand =
         OpenTemplatesFolder
         | OpenConfig
+        | ListEntries
     
     type ProgramSettings = {
         mutable key: string option
@@ -27,7 +28,7 @@ module ArgsParse
     let getSpecialCommand (settings: ProgramSettings) : SpecialCommand option =
         settings.specialCommand
         
-    let printHelp =
+    let printHelp () =
         let txt = """
 Usage: funpac [options] [key]
 
@@ -45,7 +46,7 @@ Key: The template key, which is searched for the the config file"""
         let rec aux (settings: ProgramSettings) (arg: string) : ProgramSettings =
             match arg with
             | "--help" | "-h" ->
-                printHelp
+                printHelp()
                 exit 0
             | "--verbose" | "-v" ->
                 settings.verbose <- true
@@ -57,6 +58,8 @@ Key: The template key, which is searched for the the config file"""
                 settings.specialCommand <- Some OpenTemplatesFolder
             | "--config" ->
                 settings.specialCommand <- Some OpenConfig
+            | "--list" ->
+                settings.specialCommand <- Some ListEntries
             | key ->
                 settings.key <- Some key
                 

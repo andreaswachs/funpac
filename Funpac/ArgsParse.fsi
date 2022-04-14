@@ -4,6 +4,7 @@ module ArgsParse
     type SpecialCommand =
         OpenTemplatesFolder
         | OpenConfig
+        | ListEntries
     
     val parseArgs : string array -> ProgramSettings
     val getKey : ProgramSettings -> string option

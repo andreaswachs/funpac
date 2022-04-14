@@ -108,7 +108,7 @@ module Config
     // * Functions that deal with special actions´
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     
-    let doSpecialCommand : SpecialCommand option -> unit =
+    let doSpecialCommand (entries: YamlEntry list) : SpecialCommand option -> unit =
         function
         | None -> ()
         | Some action ->
@@ -117,4 +117,8 @@ module Config
                  printfn "%s" <| Files.configFilePath
              | OpenTemplatesFolder ->
                  printfn "%s" <| Folders.templatesFolderPath
+             | ListEntries ->
+                printfn "Available templates:"
+                for entry in entries do
+                    printfn "- %s" entry.key
              exit 0
