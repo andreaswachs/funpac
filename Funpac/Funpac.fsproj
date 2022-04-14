@@ -6,11 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ArgsParse.fsi" />
+    <Compile Include="ArgsParse.fs" />
+    <Compile Include="Folders.fs" />
+    <Compile Include="Files.fs" />
+    <Compile Include="Config.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Funpac.ConfigService\Funpac.ConfigService.fsproj" />
+    <PackageReference Include="Legivel" Version="0.4.6" />
   </ItemGroup>
 
 </Project>
