@@ -5,13 +5,13 @@ settings:
 
 entries:
 - key: template1
-  type: file
-  fileName: file1.txt
+  fileNames: [ file1.txt]
+  folderNames: []
 
 - key: template2
-  type: files
   fileNames: [file2.txt, file3.txt]
+  folderNames: []
 
 - key: template3
-  type: folder
-  folderName: folder1
+  fileNames: []
+  folderNames: [ folder1 ]

@@ -1,1 +1,2 @@
-# funpac
+# README
+
