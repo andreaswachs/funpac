@@ -15,14 +15,14 @@ module Config
         unusedSetting: bool option
         otherUnusedSetting: bool option
     } 
-    type YamlEntry = {
+    type YamlTemplateEntry = {
         key: string
-        fileNames: string list option
-        folderNames: string list option
+        files: string list option
+        folders: string list option
     }
     type YamlConfigTopLevel = {
         settings: YamlSettings option
-        entries: YamlEntry list option
+        templates: YamlTemplateEntry list option
     }
     type Config = Config of YamlConfigTopLevel
     
@@ -59,20 +59,20 @@ module Config
     
     let getEntries (config: DeserializeResult<YamlConfigTopLevel>) =
         let data = getDataFromSuccess config
-        match data.entries with
+        match data.templates with
         | Some lst -> lst
         | None -> []
     
-    let entryOfKey (key: string) (entries: YamlEntry list) : YamlEntry option =
+    let entryOfKey (key: string) (entries: YamlTemplateEntry list) : YamlTemplateEntry option =
         List.tryFind (fun entry -> entry.key = key) entries
         
-    let filesOfEntry (entry: YamlEntry) : string list =
-        match entry.fileNames with
+    let filesOfEntry (entry: YamlTemplateEntry) : string list =
+        match entry.files with
         | Some fileNames -> fileNames
         | None -> []
         
-    let foldersOfEntry (entry: YamlEntry) : string list =
-        match entry.folderNames with
+    let foldersOfEntry (entry: YamlTemplateEntry) : string list =
+        match entry.folders with
         | Some folderNames -> folderNames
         | None -> []
         
@@ -83,14 +83,14 @@ module Config
     let filenameFromFullPath (destination: string) (file: string) : string =
         file.Split(Path.DirectorySeparatorChar) |> Array.last |> fun f -> Path.Combine(destination, f)
     
-    let unpackFiles (entry: YamlEntry) : unit =
+    let unpackFiles (entry: YamlTemplateEntry) : unit =
         let destination = Directory.GetCurrentDirectory()
         
         for file in filesOfEntry entry do
             let fileOut = filenameFromFullPath destination file
             copyTemplateFile fileOut file
             
-    let unpackFolders (entry: YamlEntry) : unit =
+    let unpackFolders (entry: YamlTemplateEntry) : unit =
         let destination = Directory.GetCurrentDirectory()
         
         for folder in foldersOfEntry entry do
@@ -99,7 +99,7 @@ module Config
                 let fileOut = filenameFromFullPath destination' file 
                 Files.copyFile fileOut file
             
-    let unpack (entry: YamlEntry) : unit =
+    let unpack (entry: YamlTemplateEntry) : unit =
         unpackFolders entry |> ignore
         unpackFiles entry |> ignore
         
@@ -108,7 +108,7 @@ module Config
     // * Functions that deal with special actions´
     // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     
-    let doSpecialCommand (entries: YamlEntry list) : SpecialCommand option -> unit =
+    let doSpecialCommand (entries: YamlTemplateEntry list) : SpecialCommand option -> unit =
         function
         | None -> ()
         | Some action ->
